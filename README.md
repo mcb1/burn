@@ -27,21 +27,15 @@ through the FEniCS [Docker](https://www.docker.com) images. A nice discussion of
 how to use FEniCS with Docker may be found
 [here](http://fenics.readthedocs.io/projects/containers/en/latest/).
 
-Once you have Docker and the FEniCS Docker script installed. It is
-straightforward to start running Burn. The process is described as follows:
+Once you have Docker installed, it is straightforward to start running Burn. The
+process is described as follows:
 
 1. Start a Docker terminal.
 2. Change directories into your Burn repository.
-3. Start a FEniCS session:
-```
-$ fenicsproject run
-```
-All Burn files may be found in `~/shared/`.
+3. Start a FEniCS session with access to your working directory:  
+`$ docker run -ti -v $(pwd):/home/fenics/shared quay.io/fenicsproject/stable`
 4. Change directories to wherever your input file is.
-5. Run Burn:
-```
-$ ~/shared/burn.py input.py
-```
+5. Run Burn:  `$ ~/shared/burn.py input.py
 
 The output of the simulation will be stored locally in an automatically
 generated folder. Burn writes temperature and mass fraction
@@ -51,11 +45,13 @@ fields to `vtk` files, which may be visualized using
 Example Usage
 -------------
 
-To run the plate demo, change directories to
+To run the plate demo, begin by starting a Docker Quickstart Terminal. Change
+directories to your Burn repository. Start a FEniCS session (see Step 3 above).
+Change directories to the plate verification case:
 ```
 $ cd verification/conduction/plate/
 ```
-and then launch the simulation using
+Then launch the simulation using
 ```
 $ ~/shared/burn.py plate.py
 ```

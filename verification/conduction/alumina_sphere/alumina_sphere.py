@@ -16,50 +16,50 @@ def c_p( z ):
     # J/kg-K
     return 765.
 
-# problem descriptors
 name        = "alumina_sphere"  # problem name
+
+# geometry and mesh parameters
 mesh_type   = "File"
 mesh_file   = "sphere.xml"
 bound_type  = "Total"
 
 # geometry and mesh parameters
-R       = 0.05                  # radius of circle, m
+R           = 0.05              # radius of circle, m
 
 # simulation parameters
-ss      = False
-dt      = 1e-1                  # time step, s
-dt_save = 5e-1                    # time interval of data saves
-t_f     = 60.                  # final time, s
+ss          = False             # steady state problem
+dt          = 1e-1              # time step, s
+dt_save     = 5e-1              # time interval of data saves
+t_f         = 60.               # final time, s
 
 # material model
-N     = 1                       # number of components
-N_v   = 0                       # number of volatile components
-N_r   = 0                       # number of reactions
+N           = 1                 # number of components
+N_v         = 0                 # number of volatile components
+N_r         = 0                 # number of reactions
 
 # scenario parameters (boundary conditions)
-q_int   = 1e7                   # internal heat generation, W/m^3
-T_inf   = 298.15                 # initial temperature, K
-z_i     = (T_inf,)                # initial state vector
+q_int       = 1e7               # internal heat generation, W/m^3
+T_inf       = 298.15            # initial temperature, K
+z_i         = (T_inf,)          # initial state vector
 
 # natural boundary conditions for transport: (equation, surface, function)
-bcs_tn  = []
+bcs_tn      = []
 
 # essential boundary conditons for transport: (equation, surface, value)
-bcs_te  = [ (0, "Total", T_inf) ]
+bcs_te      = [ (0, "Total", T_inf) ]
 
 # point values to record
-pt_vals = [ (0, (0.,0.,0.25*R)),
-            (0, (0.,0.,0.50*R)),
-            (0, (0.,0.,0.75*R)) ]
+pt_vals     = [ (0, (0.,0.,0.25*R)),
+                (0, (0.,0.,0.50*R)),
+                (0, (0.,0.,0.75*R)) ]
 
 # reaction model
-nu      = []
-reactant_idx = []
+nu          = []                # stoichiometric coefficients
+reactant_idx= []                # index of reactants
 
 # material properties
-rho     = 3970.         # density, kg/m^3
-A       = []    # reaction pre-exponentials, 1/s
-E       = []     # reaction activation energies, J/mol
-dh      = []             # heats of reaction, J/kg
-eps     = 0.0                  # emissivity
-D_v     = []             # volatile diffusivity, m^2/s
+rho         = 3970.             # density, kg/m^3
+A           = []                # reaction pre-exponentials, 1/s
+E           = []                # reaction activation energies, J/mol
+dh          = []                # heats of reaction, J/kg
+D_v         = []                # volatile diffusivity, m^2/s
