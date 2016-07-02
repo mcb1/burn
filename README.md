@@ -17,7 +17,7 @@ with an input file. Input files for Burn take the form of Python modules, but
 require minimal knowledge of Python to create or modify. For examples of input
 file modules look in `demos/`, `validation/`, or `verification/`. 
 Several meshes generate using
-[Gmsh](gmesh.info) may be found in `meshes/`.
+[Gmsh](https://gmesh.info) may be found in `meshes/`.
 
 Setup and Usage
 ---------------
@@ -30,12 +30,12 @@ how to use FEniCS with Docker may be found
 Once you have Docker installed, it is straightforward to start running Burn. The
 process is described as follows:
 
-1. Start a Docker terminal.
+1. Start a Docker Quickstart terminal.
 2. Change directories into your Burn repository.
 3. Start a FEniCS session with access to your working directory:  
 `$ docker run -ti -v $(pwd):/home/fenics/shared quay.io/fenicsproject/stable`
 4. Change directories to wherever your input file is.
-5. Run Burn:  `$ ~/shared/burn.py input.py
+5. Run Burn:  `$ ~/shared/burn.py input.py`
 
 The output of the simulation will be stored locally in an automatically
 generated folder. Burn writes temperature and mass fraction
