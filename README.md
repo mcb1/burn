@@ -16,8 +16,8 @@ Burn is implemented as a set of Python modules. These modules are found in the
 with an input file. Input files for Burn take the form of Python modules, but
 require minimal knowledge of Python to create or modify. For examples of input
 file modules look in `demos/`, `validation/`, or `verification/`. 
-Several meshes generate using
-[Gmsh](gmesh.info) may be found in `meshes/`.
+Several meshes generated using
+[Gmsh](http://gmesh.info) may be found in `meshes/`.
 
 Setup and Usage
 ---------------
@@ -35,7 +35,7 @@ process is described as follows:
 3. Start a FEniCS session with access to your working directory:  
 `$ docker run -ti -v $(pwd):/home/fenics/shared quay.io/fenicsproject/stable`
 4. Change directories to wherever your input file is.
-5. Run Burn:  `$ ~/shared/burn.py input.py
+5. Run Burn:  `$ ~/shared/burn.py input.py`
 
 The output of the simulation will be stored locally in an automatically
 generated folder. Burn writes temperature and mass fraction
@@ -51,7 +51,7 @@ Change directories to the plate verification case:
 ```
 $ cd verification/conduction/plate/
 ```
-Then launch the simulation using
+Then run the simulation using
 ```
 $ ~/shared/burn.py plate.py
 ```
