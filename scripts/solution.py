@@ -10,6 +10,9 @@ import numpy as np
 
 def solve( data, out_path, mesh_objects, problem, z, z0 ):
 
+    # set amount of information printed
+    set_log_level( 30 )
+
     # get mesh objects
     mesh        = mesh_objects[0]
     boundary    = mesh_objects[1]
@@ -22,7 +25,6 @@ def solve( data, out_path, mesh_objects, problem, z, z0 ):
     parameters["form_compiler"]["optimize"]         = True
     parameters["form_compiler"]["cpp_optimize"]     = True
     parameters["form_compiler"]["representation"]   = "quadrature"
-#    parameters["form_compiler"]["quadrature_degree"]   = 4
 
     # ...create Newton solver
     solver = NewtonSolver()
@@ -30,14 +32,12 @@ def solve( data, out_path, mesh_objects, problem, z, z0 ):
     # ...set solver parameters
     prm = solver.parameters
     prm["linear_solver"]              = "lu"
-    #prm["linear_solver"]              = "gmres"
-    #prm["preconditioner"]             = "petsc_amg"
     prm["convergence_criterion"]      = "incremental"
     prm["relative_tolerance"]         = 1e-6
     prm["maximum_iterations"]         = 20
     prm["relaxation_parameter"]       = 1.0
     prm["absolute_tolerance"]         = 1e-9
-    #prm["report"]                     = True
+    prm["report"]                     = False
 
     # initial conditions
     z0.interpolate(Constant(data.z_i + (10.0,)))

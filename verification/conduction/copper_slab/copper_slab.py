@@ -7,8 +7,7 @@ Input module for heat conduction across a copper slab
 
 from dolfin import *
 
-
-# Using material properties from Mill for coppert at 300 K
+# Using material properties from Mills for coppert at 300 K
 def k( z ):
     # W/m-K
     return 401.
@@ -18,7 +17,6 @@ def c_p( z ):
     return 385.
 
 name        = "copper_slab"     # problem name
-sigma       = 5.67e-8           # Stefan-Boltzman constant, W/m^2-K^4
 
 # geometry and mesh parameters
 mesh_type   = "Interval"
@@ -31,6 +29,9 @@ ss          = False
 dt          = 1e-2              # time step, s
 dt_save     = 5e-1              # time interval of data saves
 t_f         = 5.                # final time, s
+pt_vals     = [ (0, 0.01),      # point values: (equation, coordinates)
+                (0, 0.02),
+                (0, 0.03) ]
 
 # material model
 N           = 1                 # number of components
@@ -49,11 +50,6 @@ bcs_tn      = []
 # essential boundary conditons for transport: (equation, surface, value)
 bcs_te      = [ (0, "Left", T_inf),
                 (0, "Right", T_h) ]
-
-# point values to record: (equation, coordinates)
-pt_vals     = [ (0, 0.01),
-                (0, 0.02),
-                (0, 0.03) ]
 
 # reaction model
 nu          = []                # stoichiometric coefficients

@@ -19,8 +19,8 @@ def c_p( z ):
 name        = "plate"  # problem name
 
 # geometry and mesh parameters
-mesh_type   = "Rectangular"
-bound_type  = "Rectangular"
+mesh_type   = "Rectangle"
+bound_type  = "Rectangle"
 N_y         = 64                # Number of elements in y direction
 N_x         = 2*N_y             # Number of elements in x direction
 L_x         = 0.01              # length of slab in x direction, m

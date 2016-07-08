@@ -46,11 +46,10 @@ z_i         = (T_inf,)          # initial state vector
 q_int       = 0.                # internal heating, W/m^3
 
 # natural boundary conditions for transport: (equation, surface, function)
-bcs_tn      = []
 bcs_tn      = [ (0, "Total", q_surf) ]
 
 # essential boundary conditons for transport: (equation, surface, value)
-bcs_te      = [ ]
+bcs_te      = []
 
 # point values to record
 pt_vals     = [ (0, (0.,0.25*R)),
@@ -66,5 +65,4 @@ rho         = 820.              # density, kg/m^3
 A           = []                # reaction pre-exponentials, 1/s
 E           = []                # reaction activation energies, J/mol
 dh          = []                # heats of reaction, J/kg
-eps         = 0.0               # emissivity
 D_v         = []                # volatile diffusivity, m^2/s

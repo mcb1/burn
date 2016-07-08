@@ -31,6 +31,9 @@ ss          = False             # steady state problem
 dt          = 1e-1              # time step, s
 dt_save     = 5e-1              # time interval of data saves
 t_f         = 60.               # final time, s
+pt_vals     = [ (0, (0.,0.,0.25*R)),    # point values to record
+                (0, (0.,0.,0.50*R)),
+                (0, (0.,0.,0.75*R)) ]
 
 # material model
 N           = 1                 # number of components
@@ -47,11 +50,6 @@ bcs_tn      = []
 
 # essential boundary conditons for transport: (equation, surface, value)
 bcs_te      = [ (0, "Total", T_inf) ]
-
-# point values to record
-pt_vals     = [ (0, (0.,0.,0.25*R)),
-                (0, (0.,0.,0.50*R)),
-                (0, (0.,0.,0.75*R)) ]
 
 # reaction model
 nu          = []                # stoichiometric coefficients

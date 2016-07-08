@@ -1,6 +1,6 @@
 """
 
-PMMA_20.py
+pmma_20.py
 Input module for the gasification of a 1d slab of PMMA at 20 kW/m^2.
 
 """
@@ -50,6 +50,7 @@ ss          = False             # steady state problem flag
 dt          = 5e-2              # time step, s
 dt_save     = 1.                # time interval of data saves
 t_f         = 3000.             # final time, s
+pt_vals     = []                # point values: (equation, coordinates)
 
 # material model
 N           = 2                 # number of components

@@ -1,6 +1,6 @@
 """
 
-HIPS_70.py
+hips_70.py
 Input module for the gasification of a 1d slab of HIPS at 70 kW/m^2
 
 """
@@ -17,7 +17,6 @@ def c_p( z ):
     return 590. + 3.4*z[0]
 
 def q_top( z, normal ):
-
     # W/m^2
     q_conv  = h*(z[0] - T_inf)
     q_rad   = eps*sigma*(z[0]**4 - T_inf**4)
@@ -35,56 +34,52 @@ def q_bottom( z, normal ):
 
     return q_conv + q_rad
 
+name        = "hips_70"         # problem name
+
 # constants
-sigma   = 5.67e-8     # Stefan-Boltzman constant, W/m^2-K^4
-
-name    = "HIPS_70"  # problem name
-
-# problem descriptors
-mesh_type   = "Interval"
+sigma       = 5.67e-8           # Stefan-Boltzman constant, W/m^2-K^4
 
 # geometry and mesh parameters
+mesh_type   = "Interval"
 bound_type  = "Interval"
-
-N_m     = 256                    # characteristic number of elements
-L       = 6.0e-3                # height of slab, m
+N_m         = 256               # characteristic number of elements
+L           = 6.0e-3            # height of slab, m
 
 # simulation parameters
-dt      = 5e-2                  # time step, s
-dt_save = 1.                    # time interval of data saves
-t_f     = 450.                 # final time, s
+ss          = False             # steady state problem flag
+dt          = 5e-2              # time step, s
+dt_save     = 1.                # time interval of data saves
+t_f         = 450.              # final time, s
+pt_vals     = []                # point values: (equation, coordinates)
 
 # material model
-N     = 2                     # number of components
-N_v   = 1                     # number of volatile components
-N_r   = 1                     # number of reactions
+N           = 2                 # number of components
+N_v         = 1                 # number of volatile components
+N_r         = 1                 # number of reactions
 
 # scenario parameters (boundary conditions)
-q_ext   = (-70e3,)          # externally applied heat flux vector, W/m^2
-h       = 10.                   # W/m^2-K
-T_inf   = 298.                  # K
-z_i     = (T_inf, 0.0)          # initial state vector
+q_ext       = (-70e3,)          # externally applied heat flux vector, W/m^2
+h           = 10.               # convection coefficient, W/m^2-K
+T_inf       = 298.              # ambient temperature, K
+q_int       = 0.                # internal energy generation, W/m^3
+z_i         = (T_inf, 0.0)      # initial state vector
 
 # natural boundary conditions for transport: (equation, surface, function)
-bcs_tn  = [ (0, "Right", q_top),
-            (0, "Left", q_bottom)]
+bcs_tn      = [ (0, "Right", q_top),
+                (0, "Left", q_bottom)]
 
 # essential boundary conditons for transport: (equation, surface, value)
-bcs_te = []
-bcs_te  = [ (1, "Right", 0.0),
-            (1, "Left", 0.0) ]
-
-# point value data to save
-pt_vals = [  ]
+bcs_te      = [ (1, "Right", 0.0),
+                (1, "Left", 0.0) ]
 
 # reaction model
-nu      = [ [1,], [-1,] ]
-reactant_idx = [ 2, ]
+nu          = [ [1,], [-1,] ]   # stoichiometric coefficients
+reactant_idx= [ 2, ]            # indices of reactant components
 
 # material properties
-rho     = 1060.         # density, kg/m^3
-A       = [1.70e20,]    # reaction pre-exponentials, 1/s
-E       = [3.01e5,]     # reaction activation energies, J/mol
-dh      = [6.89e5,]             # heats of reaction, J/kg
-eps     = 0.95                  # emissivity
-D_v     = [1.0e-1,]             # volatile diffusivity, m^2/s
+rho         = 1060.             # density, kg/m^3
+A           = [1.70e20,]        # reaction pre-exponentials, 1/s
+E           = [3.01e5,]         # reaction activation energies, J/mol
+dh          = [6.89e5,]         # heats of reaction, J/kg
+eps         = 0.95              # emissivity
+D_v         = [1.0e-1,]         # volatile diffusivity, m^2/s

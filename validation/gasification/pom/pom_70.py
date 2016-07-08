@@ -1,6 +1,6 @@
 """
 
-POM_70.py
+pom_70.py
 Input module for the gasification of a 1d slab of POM at 70 kW/m^2.
 
 """
@@ -42,63 +42,62 @@ def q_bottom( z, normal ):
 
     return q_conv + q_rad
 
+name        = "pom_50"          # problem name
+
 # constants
-sigma   = 5.67e-8     # Stefan-Boltzman constant, W/m^2-K^4
-
-name    = "POM_70"  # problem name
-
-# problem descriptors
-mesh_type   = "Interval"
+sigma       = 5.67e-8           # Stefan-Boltzman constant, W/m^2-K^4
 
 # geometry and mesh parameters
+mesh_type   = "Interval"
 bound_type  = "Interval"
-
-N_m     = 256                    # characteristic number of elements
-L       = 6.0e-3                # height of slab, m
+N_m         = 256               # characteristic number of elements
+L           = 6.0e-3            # height of slab, m
 
 # simulation parameters
-dt      = 5e-2                  # time step, s
-dt_save = 1.                    # time interval of data saves
-t_f     = 700.                 # final time, s
+ss          = False             # steady state problem flag
+dt          = 5e-2              # time step, s
+dt_save     = 1.                # time interval of data saves
+t_f         = 700.              # final time, s
+pt_vals     = []                # point values: (equation, coordinates)
 
 # material model
-N     = 4                     # number of components
-N_v   = 1                     # number of volatile components
-N_r   = 3                     # number of reactions
+N           = 4                 # number of components
+N_v         = 1                 # number of volatile components
+N_r         = 3                 # number of reactions
 
 # scenario parameters (boundary conditions)
-q_ext   = (-70e3,)          # externally applied heat flux vector, W/m^2
-h       = 10.                   # W/m^2-K
-T_inf   = 298.                  # K
-z_i     = (T_inf, 0.0, 0.0, 0.0)          # initial state vector
+q_ext       = (-70e3,)          # externally applied heat flux vector, W/m^2
+h           = 10.               # convection coefficient, W/m^2-K
+T_inf       = 298.              # ambient temperature, K
+q_int       = 0.                # internal energy generation, W/m^3
+z_i         = (T_inf, 0.0, 0.0, 0.0)          # initial state vector
 
 # natural boundary conditions for transport: (equation, surface, function)
-bcs_tn  = [ (0, "Right", q_top),
-            (0, "Left", q_bottom) ]
+bcs_tn      = [ (0, "Right", q_top),
+                (0, "Left", q_bottom) ]
 
 # essential boundary conditons for transport: (equation, surface, value)
-bcs_te = []
-bcs_te  = [ (1, "Right", 0.0),
-            (1, "Left", 0.0) ]
+bcs_te      = [ (1, "Right", 0.0),
+                (1, "Left", 0.0) ]
 
 # reaction model
-nu      = [ [ 0.0, 0.6, 1.0],
-            [ 0.0, 0.4,-1.0],
-            [ 1.0,-1.0, 0.0],
-            [-1.0, 0.0, 0.0] ]
-reactant_idx = [ 4, 3, 2 ]
+nu          = [ [ 0.0, 0.6, 1.0],
+                [ 0.0, 0.4,-1.0],
+                [ 1.0,-1.0, 0.0],
+                [-1.0, 0.0, 0.0] ]  # stoichiometric coefficients
+reactant_idx= [ 4, 3, 2 ]           # indices of reactant components
 
 # material properties
-rho     = 1424.         # density, kg/m^3
+rho         = 1424.             # density, kg/m^3
 
-# # ...original kinetics
-# A       = [2.69e42, 3.84e14, 4.76e44]    # reaction pre-exponentials, 1/s
-# E       = [3.82e5, 2.00e5, 5.90e5]     # reaction activation energies, J/mol
+# # ...original kinetics from Stoliarov et al.
+# A           = [2.69e42, 3.84e14, 4.76e44]    # reaction pre-exponentials, 1/s
+# E           = [3.82e5, 2.00e5, 5.90e5]     # reaction activation energies, J/mol
 
 # ..."smoothed" kinetics
-A       = [1.09e27, 3.84e14, 3.55e21]    # reaction pre-exponentials, 1/s
-E       = [2.50e5, 2.00e5, 3.00e5]     # reaction activation energies, J/mol
+A           = [1.09e27, 3.84e14, 3.55e21]   # reaction pre-exponentials, 1/s
+E           = [2.50e5, 2.00e5, 3.00e5]      # reaction activation energies, J/mol
 
-dh      = [1.92e5, 11.92e5, 13.52e5]             # heats of reaction, J/kg
-eps     = 0.95                  # emissivity
-D_v     = [1.0e-1,]             # volatile diffusivity, m^2/s
+dh          = [1.92e5, 11.92e5, 13.52e5]    # heats of reaction, J/kg
+eps         = 0.95                          # emissivity
+D_v         = [1.0e-1,]                     # volatile diffusivity, m^2/s

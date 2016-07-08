@@ -34,10 +34,10 @@ def q_bottom( z, normal ):
 
     return q_conv + q_rad
 
-name    = "HIPS_30"  # problem name
+name        = "hips_30"         # problem name
 
 # constants
-sigma   = 5.67e-8     # Stefan-Boltzman constant, W/m^2-K^4
+sigma       = 5.67e-8           # Stefan-Boltzman constant, W/m^2-K^4
 
 # geometry and mesh parameters
 mesh_type   = "Interval"        # specify a 1d mesh
@@ -46,9 +46,11 @@ N_m         = 256               # characteristic number of elements
 L           = 6.0e-3            # height of slab, m
 
 # simulation parameters
+ss          = False             # steady state problem flag
 dt          = 5e-2              # time step, s
 dt_save     = 1.                # time interval of data saves
 t_f         = 1800.             # final time, s
+pt_vals     = []                # point values: (equation, coordinates)
 
 # material model
 N           = 2                 # number of components
@@ -59,6 +61,7 @@ N_r         = 1                 # number of reactions
 q_ext       = (-30e3,)          # externally applied heat flux vector, W/m^2
 h           = 10.               # convection coefficient, W/m^2-K
 T_inf       = 298.              # ambient temperature, K
+q_int       = 0.                # internal energy generation, W/m^3
 z_i         = (T_inf, 0.0)      # initial state vector
 
 # natural boundary conditions for transport: (equation, surface, function)
@@ -70,8 +73,8 @@ bcs_te      = [ (1, "Right", 0.0),
                 (1, "Left", 0.0) ]
 
 # reaction model
-nu          = [ [1,], [-1,] ]
-reactant_idx = [ 2, ]
+nu          = [ [1,], [-1,] ]   # stoichiometric coefficients
+reactant_idx= [ 2, ]            # indices of reactant components
 
 # material properties
 rho         = 1060.             # density, kg/m^3

@@ -27,7 +27,9 @@ out_path    = r"./output_" + data.name
 if not os.path.exists(out_path):
     os.makedirs(out_path)
 
-print "Burning " + data.name
+print ""
+print " --- Burning " + data.name + " --- "
+print ""
 
 # build mesh and boundary
 mesh_objects = meshing.define_objects( data )
@@ -41,4 +43,7 @@ start = clock()
 solution.solve( data, out_path, mesh_objects, problem, z, z0 )
 
 elapsed = clock() - start
-print "Finished. Total wall-clock time = ", elapsed, " s"
+print ""
+print " --- Finished burning " + data.name + " --- "
+print " Total wall-clock time = ", elapsed, " s"
+print ""
